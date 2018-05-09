@@ -1,7 +1,7 @@
 #include "print_read.hpp"
 
 //Print configuration
-bool print_conf(const Particles& part, double L, bool fin){
+bool print_conf(const Particles& part, float L, bool fin){
   int N = part.getNoOfParticles();
   char name[30];
   sprintf(name, "conf.dat");
@@ -27,7 +27,7 @@ bool print_conf(const Particles& part, double L, bool fin){
 
 
 //Read configuration
-bool chrg_conf(Particles& part, double& L, double q){
+bool chrg_conf(Particles& part, float& L, float q){
   std::string line;
   int N = part.getNoOfParticles();
   char name[30];
@@ -43,12 +43,12 @@ bool chrg_conf(Particles& part, double& L, double q){
       
   for(int i = 0; i < N; i++){
     for(int a = 0; a < 3; ++a){
-      double r;
+      float r;
       Con >> r;
       part.setPosition(i, a, r); 
     }
     for(int a = 0; a < 3; ++a){
-      double p;
+      float p;
       Con >> p;
       part.setMomentum(i, a, p);
     }
@@ -58,10 +58,10 @@ bool chrg_conf(Particles& part, double& L, double q){
 }
 
 
-bool print_out(double Time, double telap, long tcpu, int iprint, double U, double K){
+bool print_out(float Time, float telap, long tcpu, int iprint, float U, float K, float E){
   //time difference evaluation
-  double t_elap = (telap / iprint) * 1.e-6; //time / step
-  double t_cpu = (static_cast<double>(tcpu) / iprint) * 1.e-6; //cpu time / step
+  float t_elap = (telap / iprint) * 1.e-6; //time / step
+  float t_cpu = (static_cast<float>(tcpu) / iprint) * 1.e-6; //cpu time / step
 
   char name[30];
   sprintf(name, "output.dat");
@@ -72,7 +72,7 @@ bool print_out(double Time, double telap, long tcpu, int iprint, double U, doubl
   }
   Out << Time << " " << t_elap << " " << t_cpu << " | ";
   Out << setiosflags(ios::fixed) << setprecision(12);
-  Out << K << " " << U << endl;
+  Out << K << " " << U << " " << E-(K+U) << endl;
   Out.close();
   return true;
 }

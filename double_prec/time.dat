@@ -1,0 +1,4 @@
+Time per step: 0.806647 cpu: 0.805067
+Time computing forces: 0.806363 cpu: 0.804785
+Time updating positions: 8.7613e-05 cpu: 8.7493e-05
+Time updating momenta: 8.7613e-05 cpu: 9.7145e-05
